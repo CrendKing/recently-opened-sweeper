@@ -1,76 +1,58 @@
 {
-  "name": "recently-opened-cleaner",
-  "displayName": "Recently Opened Cleaner",
-  "description": "Remove workspaces from recently opened menu whose paths no longer exist.",
-  "version": "1.1.0",
-  "publisher": "ValentinRacine",
-  "engines": {
-    "vscode": "^1.73.1"
-  },
-  "categories": [
-    "Other"
-  ],
-  "keywords": [
-    "recently",
-    "Open",
-    "clean",
-    "filter"
-  ],
-  "extensionKind": [
-    "ui"
-  ],
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/WissenIstNacht/vsc-recently-opened-cleaner"
-  },
-  "icon": "media/cleaning.png",
-  "main": "./out/extension.js",
-  "activationEvents": [
-    "onStartupFinished"
-  ],
-  "contributes": {
-    "commands": [
-      {
-        "command": "recently-opened-cleaner.clean-recently-opened",
-        "title": "Clean Recently Opened List"
-      }
+    "name": "recently-opened-sweeper",
+    "displayName": "Recently Opened Sweeper",
+    "publisher": "crendking",
+    "description": "Sweep invalid recently opened entries",
+    "version": "0.1.0",
+    "license": "See license in LICENSE.txt",
+    "engines": {
+        "vscode": "^1.49.0"
+    },
+    "categories": [
+        "Other"
     ],
-    "configuration": {
-      "title": "Recently Opened Cleaner",
-      "properties": {
-        "recently-opened-cleaner.runOnStartupFinished": {
-          "type": "boolean",
-          "default": false,
-          "description": "Toggles whether or not the command should be run automatically *after* VS Code launches."
+    "keywords": [
+        "recent",
+        "open",
+        "sweep",
+        "remove"
+    ],
+    "icon": "media/icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/CrendKing/recently-opened-sweeper"
+    },
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "recently-opened-sweeper.sweep",
+                "title": "Sweep invalid recently opened entries"
+            }
+        ],
+        "configuration": {
+            "title": "Recently Opened Sweeper",
+            "properties": {
+                "recently-opened-sweeper.runAtStartup": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Sweep invalid recently opened entries at startup."
+                }
+            }
         }
-      }
+    },
+    "scripts": {
+        "vscode:prepublish": "bun run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/vscode": "*",
+        "@vscode/vsce": "*",
+        "typescript": "*"
     }
-  },
-  "scripts": {
-    "vscode:prepublish": "yarn run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./",
-    "pretest": "yarn run compile && yarn run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
-  },
-  "devDependencies": {
-    "@types/eslint-plugin-prettier": "^3.1.0",
-    "@types/glob": "^8.0.0",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "16.x",
-    "@types/prettier": "^2.7.2",
-    "@types/vscode": "^1.73.1",
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
-    "@vscode/test-electron": "^2.2.0",
-    "eslint": "^8.28.0",
-    "eslint-config-prettier": "8.8.0",
-    "eslint-plugin-prettier": "4.2.1",
-    "glob": "^8.0.3",
-    "mocha": "^10.1.0",
-    "prettier": "2.8.7",
-    "typescript": "^4.9.3"
-  }
 }
