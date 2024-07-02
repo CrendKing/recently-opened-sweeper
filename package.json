@@ -2,7 +2,7 @@
     "name": "recently-opened-sweeper",
     "displayName": "Recently Opened Sweeper",
     "publisher": "crendking",
-    "description": "Sweep invalid recently opened entries",
+    "description": "Sweep recently opened entries",
     "version": "0.1.0",
     "license": "See license in LICENSE.txt",
     "engines": {
@@ -30,7 +30,7 @@
         "commands": [
             {
                 "command": "recently-opened-sweeper.sweep",
-                "title": "Sweep invalid recently opened entries"
+                "title": "Sweep recently opened entries"
             }
         ],
         "configuration": {
@@ -39,7 +39,12 @@
                 "recently-opened-sweeper.runAtStartup": {
                     "type": "boolean",
                     "default": true,
-                    "description": "Sweep invalid recently opened entries at startup."
+                    "description": "Sweep recently opened entries at startup."
+                },
+                "recently-opened-sweeper.keepCount": {
+                    "type": "integer",
+                    "default": -1,
+                    "description": "Keep the first this many valid entries in storage for each category, delete the rest. Negative values mean keep all."
                 }
             }
         }

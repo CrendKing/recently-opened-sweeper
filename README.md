@@ -4,6 +4,8 @@ It specifically only targets local file-system entries. Other entry types such a
 
 A new command "Sweep non-existent recently opened entries" is added, which is also exexcuted automatically upon startup.
 
+This extension can be configured to remove excess entries. Note that the VSCode menu is hardcoded to only show the first 10 entries. The others are accessed through the "More..." button.
+
 ### Notes about the fork
 
 Forked from [vsc-recently-opened-cleaner](https://github.com/WissenIstNacht/vsc-recently-opened-cleaner). Originally deviates in the following aspects:

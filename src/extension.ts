@@ -21,14 +21,17 @@ type IRecentFile = {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+    const config = vscode.workspace.getConfiguration('recently-opened-sweeper')
+    const keepCount = config.get<number>('keepCount', -1)
     const commandName = 'recently-opened-sweeper.sweep'
 
-    const disposable = vscode.commands.registerCommand(commandName, async () => {
+    const disposable = vscode.commands.registerCommand(commandName, async function () {
         // The "_workbench.getRecentlyOpened" is a private API.
         // This issue https://github.com/microsoft/vscode/issues/124577 proposes to turn it public, which still hasn't happened yet
         const recentlyOpened = await vscode.commands.executeCommand<IRecentlyOpened>('_workbench.getRecentlyOpened')
         const toDelete = []
 
+        let validCount = 0
         for (const ws of recentlyOpened.workspaces) {
             let uri
             if ('folderUri' in ws) {
@@ -37,15 +40,22 @@ export function activate(context: vscode.ExtensionContext) {
                 uri = ws.workspace.configPath
             }
 
-            if (uri && uri.scheme === 'file' && !fs.existsSync(uri.fsPath)) {
-                toDelete.push(uri.fsPath)
+            if (uri) {
+                if ((keepCount >= 0 && validCount >= keepCount) || (uri.scheme === 'file' && !fs.existsSync(uri.fsPath))) {
+                    toDelete.push(uri.fsPath)
+                } else {
+                    validCount += 1
+                }
             }
         }
 
+        validCount = 0
         for (const file of recentlyOpened.files) {
             const path = file.fileUri.fsPath
-            if (!fs.existsSync(path)) {
+            if ((keepCount >= 0 && validCount >= keepCount) || !fs.existsSync(path)) {
                 toDelete.push(path)
+            } else {
+                validCount += 1
             }
         }
 
@@ -55,8 +65,7 @@ export function activate(context: vscode.ExtensionContext) {
     })
     context.subscriptions.push(disposable)
 
-    const config = vscode.workspace.getConfiguration('recently-opened-sweeper');
-    if (config.get('runAtStartup')) {
+    if (config.get<boolean>('runAtStartup', true)) {
         vscode.commands.executeCommand(commandName)
     }
 }
