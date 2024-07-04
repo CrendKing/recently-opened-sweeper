@@ -21,9 +21,10 @@ type IRecentFile = {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-    const config = vscode.workspace.getConfiguration('recently-opened-sweeper')
-    const keepCount = config.get<number>('keepCount', -1)
-    const commandName = 'recently-opened-sweeper.sweep'
+    const extensionName = 'recentlyOpenedSweeper'
+    const config = vscode.workspace.getConfiguration(extensionName)
+    const keepCount = config.get<number>('keepEntries.count', -1)
+    const commandName = `${extensionName}.sweep`
 
     const disposable = vscode.commands.registerCommand(commandName, async function () {
         // The "_workbench.getRecentlyOpened" is a private API.
@@ -65,7 +66,7 @@ export function activate(context: vscode.ExtensionContext) {
     })
     context.subscriptions.push(disposable)
 
-    if (config.get<boolean>('runAtStartup', true)) {
+    if (config.get<boolean>('runAtStartup.enabled', true)) {
         vscode.commands.executeCommand(commandName)
     }
 }

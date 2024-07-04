@@ -3,7 +3,7 @@
     "displayName": "Recently Opened Sweeper",
     "publisher": "crendking",
     "description": "Sweep recently opened entries",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "license": "See license in LICENSE.txt",
     "engines": {
         "vscode": "^1.49.0"
@@ -29,19 +29,19 @@
     "contributes": {
         "commands": [
             {
-                "command": "recently-opened-sweeper.sweep",
+                "command": "recentlyOpenedSweeper.sweep",
                 "title": "Sweep recently opened entries"
             }
         ],
         "configuration": {
             "title": "Recently Opened Sweeper",
             "properties": {
-                "recently-opened-sweeper.runAtStartup": {
+                "recentlyOpenedSweeper.runAtStartup.enabled": {
                     "type": "boolean",
                     "default": true,
                     "description": "Sweep recently opened entries at startup."
                 },
-                "recently-opened-sweeper.keepCount": {
+                "recentlyOpenedSweeper.keepEntries.count": {
                     "type": "integer",
                     "default": -1,
                     "description": "Keep the first this many valid entries in storage for each category, delete the rest. Negative values mean keep all."
