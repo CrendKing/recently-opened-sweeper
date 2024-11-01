@@ -3,7 +3,7 @@
     "displayName": "Recently Opened Sweeper",
     "publisher": "crendking",
     "description": "Sweep recently opened entries",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "license": "See license in LICENSE.txt",
     "engines": {
         "vscode": "^1.49.0"
