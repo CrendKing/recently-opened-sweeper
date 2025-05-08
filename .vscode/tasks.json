@@ -16,7 +16,8 @@
                 "runOn": "folderOpen"
             },
             "presentation": {
-                "clear": true
+                "clear": true,
+                "group": "watchers"
             },
             "group": {
                 "kind": "build",
